@@ -187,6 +187,86 @@ async def list_prompts():
         raise HTTPException(status_code=500, detail=f"Failed to list prompts: {str(e)}")
 
 
+@router.put("/{settings_id}", response_model=SettingsResponse, tags=["Settings"])
+async def update_settings(settings_id: str, request: UpdateSettingsRequest):
+    """
+    Update settings by ID with partial data.
+    """
+    try:
+        # Build patch dictionary from non-None fields
+        patch = {}
+        if request.ai_provider is not None:
+            patch["ai_provider"] = request.ai_provider
+        if request.model is not None:
+            patch["model"] = request.model
+        if request.api_key is not None:
+            patch["api_key"] = request.api_key
+        if request.folder_id is not None:
+            patch["folder_id"] = request.folder_id
+        if request.default_quality is not None:
+            patch["default_quality"] = request.default_quality
+        if request.auto_continue_pipeline is not None:
+            patch["auto_continue_pipeline"] = request.auto_continue_pipeline
+        
+        settings = settings_manager.update_settings(settings_id, patch)
+        
+        return SettingsResponse(
+            settings_id=settings.settings_id,
+            ai_provider=settings.ai_provider,
+            model=settings.model,
+            api_key=settings.api_key,
+            folder_id=settings.folder_id,
+            default_quality=settings.default_quality,
+            auto_continue_pipeline=settings.auto_continue_pipeline,
+            created_at=settings.created_at,
+            updated_at=settings.updated_at
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Settings update failed: {str(e)}")
+
+
+@router.put("/{settings_id}", response_model=SettingsResponse, tags=["Settings"])
+async def update_settings(settings_id: str, request: UpdateSettingsRequest):
+    """
+    Update settings by ID with partial data.
+    """
+    try:
+        # Build patch dictionary from non-None fields
+        patch = {}
+        if request.ai_provider is not None:
+            patch["ai_provider"] = request.ai_provider
+        if request.model is not None:
+            patch["model"] = request.model
+        if request.api_key is not None:
+            patch["api_key"] = request.api_key
+        if request.folder_id is not None:
+            patch["folder_id"] = request.folder_id
+        if request.default_quality is not None:
+            patch["default_quality"] = request.default_quality
+        if request.auto_continue_pipeline is not None:
+            patch["auto_continue_pipeline"] = request.auto_continue_pipeline
+        
+        settings = settings_manager.update_settings(settings_id, patch)
+        
+        return SettingsResponse(
+            settings_id=settings.settings_id,
+            ai_provider=settings.ai_provider,
+            model=settings.model,
+            api_key=settings.api_key,
+            folder_id=settings.folder_id,
+            default_quality=settings.default_quality,
+            auto_continue_pipeline=settings.auto_continue_pipeline,
+            created_at=settings.created_at,
+            updated_at=settings.updated_at
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Settings update failed: {str(e)}")
+
+
 @router.get("/{settings_id}", response_model=SettingsResponse, tags=["Settings"])
 async def get_settings_by_id(settings_id: str):
     """
