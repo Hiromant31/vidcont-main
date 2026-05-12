@@ -90,7 +90,12 @@ export interface Settings {
 export type FlatSettings = Settings;
 
 export interface WebSocketMessage {
-  type: 'job_started' | 'job_progress' | 'stage_completed' | 'stage_failed' | 'render_started' | 'render_completed' | 'logs_updated';
+  type: 'job_started' | 'job_progress' | 'job_completed' | 'job_failed'
+      | 'stage_completed' | 'stage_failed'
+      | 'render_started' | 'render_completed'
+      | 'logs_updated'
+      | 'metrics_updated' | 'error_spike_detected'
+      | 'asset_created' | 'asset_updated' | 'asset_deleted' | 'asset_ready' | 'asset_failed';
   data: any;
   timestamp: string;
 }

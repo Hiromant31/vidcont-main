@@ -22,12 +22,20 @@ export const useWebSocketStore = create<WebSocketState>((set, get) => ({
       await websocketService.connect();
       set({ connected: true, connecting: false });
 
+      websocketService.on('job_started', (message) => {
+        console.log('Job started:', message);
+      });
+
       websocketService.on('job_progress', (message) => {
         console.log('Job progress:', message);
       });
 
       websocketService.on('job_completed', (message) => {
         console.log('Job completed:', message);
+      });
+
+      websocketService.on('job_failed', (message) => {
+        console.log('Job failed:', message);
       });
 
       websocketService.on('stage_completed', (message) => {
@@ -48,6 +56,34 @@ export const useWebSocketStore = create<WebSocketState>((set, get) => ({
 
       websocketService.on('logs_updated', (message) => {
         console.log('Logs updated:', message);
+      });
+
+      websocketService.on('metrics_updated', (message) => {
+        console.log('Metrics updated:', message);
+      });
+
+      websocketService.on('error_spike_detected', (message) => {
+        console.log('Error spike detected:', message);
+      });
+
+      websocketService.on('asset_created', (message) => {
+        console.log('Asset created:', message);
+      });
+
+      websocketService.on('asset_updated', (message) => {
+        console.log('Asset updated:', message);
+      });
+
+      websocketService.on('asset_deleted', (message) => {
+        console.log('Asset deleted:', message);
+      });
+
+      websocketService.on('asset_ready', (message) => {
+        console.log('Asset ready:', message);
+      });
+
+      websocketService.on('asset_failed', (message) => {
+        console.log('Asset failed:', message);
       });
     } catch (error) {
       set({

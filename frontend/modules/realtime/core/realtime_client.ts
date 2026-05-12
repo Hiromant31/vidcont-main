@@ -55,7 +55,7 @@ export class RealtimeClient {
 
           const realtimeEvent: RealtimeEvent = {
             type: data.type,
-            payload: data.payload || data.data,
+            payload: data.data || data.payload || {},
             timestamp: data.timestamp || new Date().toISOString(),
             source: data.source || 'system',
           };

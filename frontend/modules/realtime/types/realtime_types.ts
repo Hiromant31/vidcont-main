@@ -1,14 +1,25 @@
 export type EventSource = 'pipeline' | 'jobs' | 'scenes' | 'characters' | 'projects' | 'system';
 
-export type EventType = 
+export type EventType =
   | 'connection_status_changed'
-  | 'job_progress'
   | 'job_started'
+  | 'job_progress'
   | 'job_completed'
   | 'job_failed'
+  | 'stage_completed'
+  | 'stage_failed'
+  | 'render_started'
+  | 'render_completed'
+  | 'logs_updated'
+  | 'metrics_updated'
+  | 'error_spike_detected'
+  | 'asset_created'
+  | 'asset_updated'
+  | 'asset_deleted'
+  | 'asset_ready'
+  | 'asset_failed'
   | 'pipeline_stage_started'
   | 'pipeline_stage_progress'
-  | 'pipeline_stage_completed'
   | 'project_updated'
   | 'project_created'
   | 'character_updated'
