@@ -1,26 +1,12 @@
-```gitignore
+```
 # Dependencies
 node_modules/
 
 # Build outputs
 dist/
 build/
-target/
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-.ENV
-.python-version
-
-# Logs
-*.log
+.next/
+.nuxt/
 
 # Environment variables
 .env
@@ -33,27 +19,60 @@ venv/
 *.swp
 *.swo
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# Logs
+*.log
 
-# Coverage reports
-coverage/
-htmlcov/
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
 .coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/
+
+# Node.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+node_modules/
+dist/
+logs
+lib-cov
+coverage
+.nyc_output
+testem.log
+.travis.yml
+appveyor.yml
+typings/
+jspm_packages/
+web-build/
+webpack.config.js
+webpack.config.*.js
+*.tsbuildinfo
+*.js.map
+*.mjs.map
+*.cjs.map
 
 # Temporary files
 *.tmp
 *.temp
-*.bak
+.DS_Store
+Thumbs.db
 
-# MyPy
-.mypy_cache/
-
-# PyTest
-.pytest_cache/
-
-# Compressed files
+# Compression
 *.zip
 *.gz
 *.tar
@@ -76,4 +95,19 @@ htmlcov/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
+
+# Coverage
+coverage/
+htmlcov/
+.coverage*
+
+# Gradle
+.gradle/
+build/
+
+# Rust
+target/
+
+# Go
+vendor/
 ```
