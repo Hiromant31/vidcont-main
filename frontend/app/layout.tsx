@@ -2,6 +2,7 @@ import { QueryProvider } from '@/providers/query_provider';
 import { WebSocketProvider } from '@/providers/websocket_provider';
 import { ThemeProvider } from '@/providers/theme_provider';
 import { AuthProvider } from '@/providers/auth_provider';
+import '@/styles/globals.css';
 
 export default function RootLayout({
   children,
