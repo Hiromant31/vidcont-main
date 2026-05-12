@@ -1,0 +1,33 @@
+{
+  "ai": {
+    "provider": "openai",
+    "model": "gpt-4",
+    "api_key": "",
+    "yandex_folder_id": null,
+    "base_url": null
+  },
+  "tts": {
+    "provider": "openai",
+    "voice": "alloy",
+    "speed": 1.0,
+    "pitch": 1.0,
+    "emotion": null
+  },
+  "render": {
+    "resolution": "720p",
+    "orientation": "vertical",
+    "fps": 30,
+    "subtitles_enabled": true,
+    "subtitles_style": "classic"
+  },
+  "colab": {
+    "url": "http://localhost:8080",
+    "is_connected": false,
+    "last_ping": null
+  },
+  "pipeline": {
+    "max_concurrent_jobs": 3,
+    "auto_retry_failed": true,
+    "default_duration_sec": 60
+  }
+}
