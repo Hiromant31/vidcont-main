@@ -185,111 +185,115 @@ export function GenerateVideoPanel() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="duration">Duration (seconds)</Label>
-              <Input
-                id="duration"
-                type="number"
-                min={15}
-                max={300}
-                value={formData.duration}
-                onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) || 60 })}
-                disabled={generateMutation.isPending}
-              />
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="duration">Duration (seconds)</Label>
+                <Input
+                  id="duration"
+                  type="number"
+                  min={15}
+                  max={300}
+                  value={formData.duration}
+                  onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) || 60 })}
+                  disabled={generateMutation.isPending}
+                  className="w-full"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="episodes">Episodes Count</Label>
+                <Input
+                  id="episodes"
+                  type="number"
+                  min={1}
+                  max={10}
+                  value={formData.episodes_count}
+                  onChange={(e) => setFormData({ ...formData, episodes_count: parseInt(e.target.value) || 1 })}
+                  disabled={generateMutation.isPending}
+                  className="w-full"
+                />
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="episodes">Episodes Count</Label>
-              <Input
-                id="episodes"
-                type="number"
-                min={1}
-                max={10}
-                value={formData.episodes_count}
-                onChange={(e) => setFormData({ ...formData, episodes_count: parseInt(e.target.value) || 1 })}
-                disabled={generateMutation.isPending}
-              />
-            </div>
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="orientation">Orientation</Label>
+                <Select
+                  value={formData.orientation}
+                  onValueChange={(value: any) => setFormData({ ...formData, orientation: value })}
+                  disabled={generateMutation.isPending}
+                >
+                  <SelectTrigger id="orientation" className="w-full">
+                    <SelectValue placeholder="Select orientation" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="vertical">Vertical (9:16)</SelectItem>
+                    <SelectItem value="horizontal">Horizontal (16:9)</SelectItem>
+                    <SelectItem value="square">Square (1:1)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="orientation">Orientation</Label>
-              <Select
-                value={formData.orientation}
-                onValueChange={(value: any) => setFormData({ ...formData, orientation: value })}
-                disabled={generateMutation.isPending}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="vertical">Vertical (9:16)</SelectItem>
-                  <SelectItem value="horizontal">Horizontal (16:9)</SelectItem>
-                  <SelectItem value="square">Square (1:1)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="quality">Quality</Label>
-              <Select
-                value={formData.quality}
-                onValueChange={(value: any) => setFormData({ ...formData, quality: value })}
-                disabled={generateMutation.isPending}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="720p">720p HD</SelectItem>
-                  <SelectItem value="1080p">1080p Full HD</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="genre">Genre</Label>
-              <Select
-                value={formData.genre}
-                onValueChange={(value: any) => setFormData({ ...formData, genre: value })}
-                disabled={generateMutation.isPending}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="general">General</SelectItem>
-                  <SelectItem value="drama">Drama</SelectItem>
-                  <SelectItem value="comedy">Comedy</SelectItem>
-                  <SelectItem value="action">Action</SelectItem>
-                  <SelectItem value="documentary">Documentary</SelectItem>
-                  <SelectItem value="educational">Educational</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="space-y-2">
+                <Label htmlFor="quality">Quality</Label>
+                <Select
+                  value={formData.quality}
+                  onValueChange={(value: any) => setFormData({ ...formData, quality: value })}
+                  disabled={generateMutation.isPending}
+                >
+                  <SelectTrigger id="quality" className="w-full">
+                    <SelectValue placeholder="Select quality" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="720p">720p HD</SelectItem>
+                    <SelectItem value="1080p">1080p Full HD</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="style">Style</Label>
-              <Select
-                value={formData.style}
-                onValueChange={(value: any) => setFormData({ ...formData, style: value })}
-                disabled={generateMutation.isPending}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="cinematic">Cinematic</SelectItem>
-                  <SelectItem value="cartoon">Cartoon</SelectItem>
-                  <SelectItem value="realistic">Realistic</SelectItem>
-                  <SelectItem value="anime">Anime</SelectItem>
-                  <SelectItem value="minimalist">Minimalist</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="genre">Genre</Label>
+                <Select
+                  value={formData.genre}
+                  onValueChange={(value: any) => setFormData({ ...formData, genre: value })}
+                  disabled={generateMutation.isPending}
+                >
+                  <SelectTrigger id="genre" className="w-full">
+                    <SelectValue placeholder="Select genre" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="general">General</SelectItem>
+                    <SelectItem value="drama">Drama</SelectItem>
+                    <SelectItem value="comedy">Comedy</SelectItem>
+                    <SelectItem value="action">Action</SelectItem>
+                    <SelectItem value="documentary">Documentary</SelectItem>
+                    <SelectItem value="educational">Educational</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="style">Style</Label>
+                <Select
+                  value={formData.style}
+                  onValueChange={(value: any) => setFormData({ ...formData, style: value })}
+                  disabled={generateMutation.isPending}
+                >
+                  <SelectTrigger id="style" className="w-full">
+                    <SelectValue placeholder="Select style" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="cinematic">Cinematic</SelectItem>
+                    <SelectItem value="cartoon">Cartoon</SelectItem>
+                    <SelectItem value="realistic">Realistic</SelectItem>
+                    <SelectItem value="anime">Anime</SelectItem>
+                    <SelectItem value="minimalist">Minimalist</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
 
