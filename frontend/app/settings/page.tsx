@@ -1,37 +1,24 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { settingsApi } from '@/services/api/settings';
+import { settingsApi } from '@/modules/settings/api/settings_api';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import type { Settings } from '@/types';
+import type { AppSettings } from '@/modules/settings/types/settings_types';
 
 export default function SettingsPage() {
   const queryClient = useQueryClient();
 
-  const { data: settingsList, isLoading, error } = useQuery({
-    queryKey: ['settings'],
+  const { data: appSettings, isLoading, error } = useQuery({
+    queryKey: ['app-settings'],
     queryFn: () => settingsApi.get(),
   });
 
-  const settings = settingsList?.[0] || null;
-
-  const createMutation = useMutation({
-    mutationFn: (data: Partial<Settings>) => settingsApi.create(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['settings'] });
-      alert('Settings created successfully!');
-    },
-    onError: (error) => {
-      alert(`Failed to create settings: ${error.message}`);
-    },
-  });
-
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Partial<Settings> }) => 
-      settingsApi.update(id, data),
+    mutationFn: (data: Partial<AppSettings>) => settingsApi.update(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['settings'] });
+      queryClient.invalidateQueries({ queryKey: ['app-settings'] });
       alert('Settings updated successfully!');
     },
     onError: (error) => {
@@ -39,14 +26,14 @@ export default function SettingsPage() {
     },
   });
 
-  const deleteMutation = useMutation({
-    mutationFn: (id: string) => settingsApi.delete(id),
+  const createMutation = useMutation({
+    mutationFn: (data: Partial<AppSettings>) => settingsApi.update(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['settings'] });
-      alert('Settings deleted successfully!');
+      queryClient.invalidateQueries({ queryKey: ['app-settings'] });
+      alert('Settings created successfully!');
     },
     onError: (error) => {
-      alert(`Failed to delete settings: ${error.message}`);
+      alert(`Failed to create settings: ${error.message}`);
     },
   });
 
@@ -57,68 +44,64 @@ export default function SettingsPage() {
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Settings</h1>
 
-      {!settings ? (
+      {!appSettings ? (
         <Card>
           <CardHeader>
             <CardTitle>No Settings Found</CardTitle>
           </CardHeader>
           <CardContent>
-            <Button 
-              onClick={() => createMutation.mutate({
-                settings_id: `settings-${Date.now()}`,
-                ai_provider: "openai",
-                model: "gpt-4",
-                api_key: "",
-                default_quality: "1080",
-                auto_continue_pipeline: true,
-              })}
-            >
+            <Button onClick={() => createMutation.mutate({} as any)}>
               Create Default Settings
             </Button>
           </CardContent>
         </Card>
       ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle>AI Provider Settings</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <label className="text-sm font-medium">Provider</label>
-              <p className="text-muted-foreground">{settings.ai_provider}</p>
-            </div>
-            <div>
-              <label className="text-sm font-medium">Model</label>
-              <p className="text-muted-foreground">{settings.model}</p>
-            </div>
-            <div>
-              <label className="text-sm font-medium">Default Quality</label>
-              <p className="text-muted-foreground">{settings.default_quality}p</p>
-            </div>
-            <div>
-              <label className="text-sm font-medium">Auto Continue Pipeline</label>
-              <p className="text-muted-foreground">
-                {settings.auto_continue_pipeline ? 'Yes' : 'No'}
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <Button 
-                onClick={() => updateMutation.mutate({ 
-                  id: settings.settings_id, 
-                  data: { auto_continue_pipeline: !settings.auto_continue_pipeline } 
-                })}
-              >
-                Toggle Auto Continue
-              </Button>
-              <Button 
-                variant="destructive"
-                onClick={() => deleteMutation.mutate(settings.settings_id)}
-              >
-                Delete Settings
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>AI Provider</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <label className="text-sm font-medium">Provider</label>
+                <p className="text-muted-foreground">{appSettings.ai.provider}</p>
+              </div>
+              <div>
+                <label className="text-sm font-medium">Model</label>
+                <p className="text-muted-foreground">{appSettings.ai.model}</p>
+              </div>
+              <div>
+                <label className="text-sm font-medium">API Key</label>
+                <p className="text-muted-foreground">••••••••{appSettings.ai.api_key.slice(-4)}</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Pipeline Defaults</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <label className="text-sm font-medium">Max Concurrent Jobs</label>
+                <p className="text-muted-foreground">{appSettings.pipeline.max_concurrent_jobs}</p>
+              </div>
+              <div>
+                <label className="text-sm font-medium">Auto Retry Failed</label>
+                <p className="text-muted-foreground">{appSettings.pipeline.auto_retry_failed ? 'Yes' : 'No'}</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Button
+            variant="outline"
+            onClick={() => updateMutation.mutate({
+              pipeline: { ...appSettings.pipeline, auto_retry_failed: !appSettings.pipeline.auto_retry_failed }
+            })}
+          >
+            Toggle Auto Retry
+          </Button>
+        </div>
       )}
     </div>
   );
