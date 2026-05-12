@@ -17,11 +17,13 @@ from api.schemas.settings_schema import (
     ResolveVariablesRequest,
     VariablesResolutionResponse,
 )
+from api.schemas.app_settings_schema import AppSettingsRequest, AppSettingsResponse
 from settings.settings_manager import SettingsManager
 from settings.channel_manager import ChannelManager
 from settings.prompt_manager import PromptManager
 from settings.template_engine import TemplateEngine
 from settings.variable_resolver import VariableResolver
+from settings.app_settings_manager import AppSettingsManager
 
 router = APIRouter()
 
@@ -69,6 +71,7 @@ channel_manager = ChannelManager(mock_storage)
 prompt_manager = PromptManager(mock_storage)
 template_engine = TemplateEngine()
 variable_resolver = VariableResolver()
+app_settings_manager = AppSettingsManager()
 
 
 @router.post("/create", response_model=SettingsResponse, tags=["Settings"])
@@ -100,6 +103,46 @@ async def create_settings(request: CreateSettingsRequest):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Settings creation failed: {str(e)}")
+
+
+@router.put("/{settings_id}", response_model=SettingsResponse, tags=["Settings"])
+async def update_settings(settings_id: str, request: UpdateSettingsRequest):
+    """
+    Update existing AI provider and pipeline settings.
+    """
+    try:
+        # Собираем только переданные поля
+        patch = {}
+        if request.ai_provider is not None:
+            patch["ai_provider"] = request.ai_provider
+        if request.model is not None:
+            patch["model"] = request.model
+        if request.api_key is not None:
+            patch["api_key"] = request.api_key
+        if request.folder_id is not None:
+            patch["folder_id"] = request.folder_id
+        if request.default_quality is not None:
+            patch["default_quality"] = request.default_quality
+        if request.auto_continue_pipeline is not None:
+            patch["auto_continue_pipeline"] = request.auto_continue_pipeline
+
+        settings = settings_manager.update_settings(settings_id, patch)
+
+        return SettingsResponse(
+            settings_id=settings.settings_id,
+            ai_provider=settings.ai_provider,
+            model=settings.model,
+            api_key=settings.api_key,
+            folder_id=settings.folder_id,
+            default_quality=settings.default_quality,
+            auto_continue_pipeline=settings.auto_continue_pipeline,
+            created_at=settings.created_at,
+            updated_at=settings.updated_at
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Settings update failed: {str(e)}")
 
 
 @router.delete("/{settings_id}", tags=["Settings"])
@@ -303,3 +346,45 @@ async def resolve_variables(request: ResolveVariablesRequest):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Variable resolution failed: {str(e)}")
+
+
+@router.get("/app", response_model=AppSettingsResponse, tags=["AppSettings"])
+async def get_app_settings():
+    """Get application-wide settings."""
+    try:
+        settings = app_settings_manager.get_settings()
+        return AppSettingsResponse(**settings)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get app settings: {str(e)}")
+
+
+@router.put("/app", response_model=AppSettingsResponse, tags=["AppSettings"])
+async def update_app_settings(request: AppSettingsRequest):
+    """Update application-wide settings."""
+    try:
+        patch = request.model_dump(exclude_unset=True)
+        updated = app_settings_manager.update_settings(patch)
+        return AppSettingsResponse(**updated)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to update app settings: {str(e)}")
+
+
+@router.post("/test-connection", tags=["AppSettings"])
+async def test_connection():
+    """Test connection to the configured AI provider."""
+    try:
+        result = app_settings_manager.test_connection()
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Connection test failed: {str(e)}")
+
+
+@router.get("/models", tags=["AppSettings"])
+async def get_available_models(provider: str = "openai"):
+    """Get list of available models for a provider."""
+    try:
+        result = app_settings_manager.get_available_models(provider)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get models: {str(e)}")
+

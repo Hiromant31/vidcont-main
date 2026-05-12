@@ -226,3 +226,50 @@ async def cleanup_job(render_job_id: str):
             raise HTTPException(status_code=404, detail="Job not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Cleanup failed: {str(e)}")
+
+
+@router.get("/status/{render_job_id}", response_model=RenderJobResponse, tags=["Render"])
+async def get_render_status(render_job_id: str):
+    """
+    Get render job status by ID (GET version for frontend compatibility).
+    """
+    try:
+        render_job = render_manager.check_status(render_job_id)
+
+        return RenderJobResponse(
+            render_job_id=render_job.render_job_id,
+            job_id=render_job.job_id,
+            colab_url=render_job.colab_url,
+            status=render_job.status.value if hasattr(render_job.status, 'value') else render_job.status,
+            progress=render_job.progress,
+            result_video_url=render_job.result_video_url,
+            logs=render_job.logs,
+            created_at=render_job.created_at,
+            updated_at=render_job.updated_at
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Status check failed: {str(e)}")
+
+
+@router.get("/result/{render_job_id}", tags=["Render"])
+async def get_render_result(render_job_id: str):
+    """
+    Get render result video URL by render job ID.
+    """
+    try:
+        render_job = render_manager.get_job(render_job_id)
+        if not render_job:
+            raise HTTPException(status_code=404, detail="Render job not found")
+
+        return {
+            "render_job_id": render_job.render_job_id,
+            "video_url": render_job.result_video_url,
+            "status": render_job.status.value if hasattr(render_job.status, 'value') else render_job.status,
+            "progress": render_job.progress
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get render result: {str(e)}")
