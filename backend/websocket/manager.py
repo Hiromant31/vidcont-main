@@ -3,6 +3,7 @@ WebSocket Manager - Realtime обновления для frontend
 """
 import asyncio
 import json
+from datetime import datetime
 from typing import Dict, Set
 from fastapi import WebSocket
 from core.logger import setup_logger
@@ -101,6 +102,33 @@ class WebSocketManager:
             "logs": logs
         }
         await self.send_personal_message(message, job_id)
+
+    async def send_metrics_update(self, metrics: dict):
+        """Отправить обновление метрик аналитики."""
+        message = {
+            "type": "metrics_updated",
+            "data": metrics,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+        await self.broadcast(message)
+
+    async def send_error_spike(self, spike_data: dict):
+        """Отправить уведомление об аномалии."""
+        message = {
+            "type": "error_spike_detected",
+            "data": spike_data,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+        await self.broadcast(message)
+
+    async def send_asset_event(self, event_type: str, asset_data: dict):
+        """Отправить событие ассета (created/updated/deleted/ready/failed)."""
+        message = {
+            "type": f"asset_{event_type}",
+            "data": asset_data,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+        await self.broadcast(message)
 
 # Singleton instance
 _manager = None
