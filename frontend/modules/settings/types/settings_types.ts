@@ -66,3 +66,16 @@ export interface ProviderOption {
   supports_custom_url: boolean;
   default_models: string[];
 }
+
+/** @deprecated Используйте AppSettings. Оставлено для обратной совместимости. */
+export type FlatSettings = {
+  settings_id: string;
+  ai_provider: AIProvider;
+  model: string;
+  api_key: string;
+  folder_id?: string | null;
+  default_quality: Resolution;
+  auto_continue_pipeline: boolean;
+  created_at: string;
+  updated_at: string;
+};

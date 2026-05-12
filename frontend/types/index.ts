@@ -86,6 +86,9 @@ export interface Settings {
   updated_at: string;
 }
 
+/** @deprecated Используйте AppSettings из modules/settings/types/settings_types */
+export type FlatSettings = Settings;
+
 export interface WebSocketMessage {
   type: 'job_started' | 'job_progress' | 'stage_completed' | 'stage_failed' | 'render_started' | 'render_completed' | 'logs_updated';
   data: any;
