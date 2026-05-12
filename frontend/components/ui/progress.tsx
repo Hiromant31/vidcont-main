@@ -1,35 +1,28 @@
 import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/utils/cn"
 
-const progressVariants = cva(
-  "relative w-full h-2.5 overflow-hidden rounded-md bg-accent",
-  {
-    variants: {},
-    defaultVariants: {},
-  }
-)
-export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof progressVariants> {
-  value: number
+export interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
+  value?: number
+  className?: string
 }
 
-/**
- * Progress component
- */
-export const Progress = React.forwardRef<
-  HTMLDivElement,
-  ProgressProps
->(({ className, value, ...props }, ref) => (
-  <div
-    className={cn(progressVariants(), className)}
-    ref={ref}
-    {...props}
-  >
-    <div
-      className="flex h-2.5 w-0 overflow-hidden rounded-md bg-primary transition-width duration-500"
-      style={{ width: `${value}%` }}
-    />
-  </div>
-))
+export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
+  ({ className, value = 0, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
+          className
+        )}
+        {...props}
+      >
+        <div
+          className="h-full bg-primary transition-all duration-300 ease-in-out"
+          style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
+        />
+      </div>
+    )
+  }
+)
 Progress.displayName = "Progress"
