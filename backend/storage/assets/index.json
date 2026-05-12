@@ -1,0 +1,230 @@
+[
+  {
+    "id": "asset_001",
+    "project_id": "proj_003",
+    "job_id": "job_018",
+    "scene_id": null,
+    "render_id": null,
+    "type": "image",
+    "url": "/static/assets/image_001.png",
+    "thumbnail_url": "/static/assets/thumb_001.png",
+    "status": "ready",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_image_001"
+    },
+    "size_bytes": 3682864,
+    "duration_sec": null,
+    "created_at": "2026-05-07T15:01:09.700885",
+    "name": "Mock Image 001"
+  },
+  {
+    "id": "asset_002",
+    "project_id": "proj_001",
+    "job_id": "job_016",
+    "scene_id": "scene_002",
+    "render_id": null,
+    "type": "audio",
+    "url": "/static/assets/audio_002.mp3",
+    "thumbnail_url": null,
+    "status": "ready",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_audio_002"
+    },
+    "size_bytes": 1230359,
+    "duration_sec": 66.4,
+    "created_at": "2026-05-11T00:01:09.700885",
+    "name": "Mock Audio 002"
+  },
+  {
+    "id": "asset_003",
+    "project_id": "proj_002",
+    "job_id": "job_009",
+    "scene_id": "scene_010",
+    "render_id": "render_005",
+    "type": "video",
+    "url": "/static/assets/video_003.mp4",
+    "thumbnail_url": "/static/assets/thumb_003.png",
+    "status": "ready",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_video_003"
+    },
+    "size_bytes": 4478480,
+    "duration_sec": 9.4,
+    "created_at": "2026-05-11T21:01:09.700885",
+    "name": "Mock Video 003"
+  },
+  {
+    "id": "asset_004",
+    "project_id": "proj_005",
+    "job_id": "job_012",
+    "scene_id": null,
+    "render_id": null,
+    "type": "subtitle",
+    "url": "/static/assets/subtitle_004.srt",
+    "thumbnail_url": null,
+    "status": "processing",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_subtitle_004"
+    },
+    "size_bytes": 3629232,
+    "duration_sec": null,
+    "created_at": "2026-05-08T23:01:09.700885",
+    "name": "Mock Subtitle 004"
+  },
+  {
+    "id": "asset_005",
+    "project_id": "proj_004",
+    "job_id": "job_001",
+    "scene_id": null,
+    "render_id": null,
+    "type": "thumbnail",
+    "url": "/static/assets/thumbnail_005.png",
+    "thumbnail_url": null,
+    "status": "failed",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_thumbnail_005"
+    },
+    "size_bytes": 4195227,
+    "duration_sec": null,
+    "created_at": "2026-05-12T13:01:09.700885",
+    "name": "Mock Thumbnail 005"
+  },
+  {
+    "id": "asset_006",
+    "project_id": "proj_001",
+    "job_id": "job_018",
+    "scene_id": "scene_002",
+    "render_id": null,
+    "type": "image",
+    "url": "/static/assets/image_006.png",
+    "thumbnail_url": "/static/assets/thumb_006.png",
+    "status": "ready",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_image_006"
+    },
+    "size_bytes": 4258801,
+    "duration_sec": null,
+    "created_at": "2026-05-06T19:01:09.700885",
+    "name": "Mock Image 006"
+  },
+  {
+    "id": "asset_007",
+    "project_id": "proj_004",
+    "job_id": "job_010",
+    "scene_id": "scene_007",
+    "render_id": null,
+    "type": "audio",
+    "url": "/static/assets/audio_007.mp3",
+    "thumbnail_url": null,
+    "status": "ready",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_audio_007"
+    },
+    "size_bytes": 2945710,
+    "duration_sec": 117.8,
+    "created_at": "2026-05-05T22:01:09.700885",
+    "name": "Mock Audio 007"
+  },
+  {
+    "id": "asset_008",
+    "project_id": "proj_004",
+    "job_id": "job_005",
+    "scene_id": null,
+    "render_id": "render_006",
+    "type": "video",
+    "url": "/static/assets/video_008.mp4",
+    "thumbnail_url": "/static/assets/thumb_008.png",
+    "status": "ready",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_video_008"
+    },
+    "size_bytes": 3995363,
+    "duration_sec": 21.7,
+    "created_at": "2026-05-08T01:01:09.700885",
+    "name": "Mock Video 008"
+  },
+  {
+    "id": "asset_009",
+    "project_id": "proj_005",
+    "job_id": "job_010",
+    "scene_id": null,
+    "render_id": null,
+    "type": "subtitle",
+    "url": "/static/assets/subtitle_009.srt",
+    "thumbnail_url": null,
+    "status": "processing",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_subtitle_009"
+    },
+    "size_bytes": 710588,
+    "duration_sec": null,
+    "created_at": "2026-05-06T23:01:09.700885",
+    "name": "Mock Subtitle 009"
+  },
+  {
+    "id": "asset_010",
+    "project_id": "proj_002",
+    "job_id": "job_002",
+    "scene_id": null,
+    "render_id": null,
+    "type": "thumbnail",
+    "url": "/static/assets/thumbnail_010.png",
+    "thumbnail_url": null,
+    "status": "failed",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_thumbnail_010"
+    },
+    "size_bytes": 4408901,
+    "duration_sec": null,
+    "created_at": "2026-05-08T00:01:09.700885",
+    "name": "Mock Thumbnail 010"
+  },
+  {
+    "id": "asset_011",
+    "project_id": "proj_004",
+    "job_id": "job_013",
+    "scene_id": null,
+    "render_id": null,
+    "type": "image",
+    "url": "/static/assets/image_011.png",
+    "thumbnail_url": "/static/assets/thumb_011.png",
+    "status": "ready",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_image_011"
+    },
+    "size_bytes": 2077488,
+    "duration_sec": null,
+    "created_at": "2026-05-08T10:01:09.700885",
+    "name": "Mock Image 011"
+  },
+  {
+    "id": "asset_012",
+    "project_id": "proj_005",
+    "job_id": "job_017",
+    "scene_id": "scene_007",
+    "render_id": null,
+    "type": "audio",
+    "url": "/static/assets/audio_012.mp3",
+    "thumbnail_url": null,
+    "status": "ready",
+    "metadata": {
+      "source": "mock",
+      "original_name": "mock_audio_012"
+    },
+    "size_bytes": 355272,
+    "duration_sec": 41.6,
+    "created_at": "2026-05-07T06:01:09.700885",
+    "name": "Mock Audio 012"
+  }
+]
